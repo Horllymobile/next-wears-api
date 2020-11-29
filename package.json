@@ -1,0 +1,25 @@
+{
+  "name": "next-wears-api",
+  "version": "1.0.0",
+  "description": "This is a backend api for foot wears store",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Horllymobile/next-wears-api.git"
+  },
+  "keywords": [
+    "next-wears",
+    "api",
+    "shoe",
+    "palm"
+  ],
+  "author": "horllymobile",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Horllymobile/next-wears-api/issues"
+  },
+  "homepage": "https://github.com/Horllymobile/next-wears-api#readme"
+}
