@@ -1,14 +1,27 @@
 const { model, Schema } = require('mongoose');
+const jwt = require('jsonwebtoken');
 
 const cartSchema = new Schema({
+    product: {
+        type: Schema.Types.ObjectId,
+    },
+});
+
+const orderSchema = new Schema({
     product: {
         type: Schema.Types.ObjectId,
     },
     date: {
         type: Date,
         default: Date.now
+    },
+    address: {
+        type: String,
+        minlength: 50,
+        maxlength: 512,
+        required: true
     }
-})
+});
 
 const userSchema = new Schema({
     name: {
@@ -21,7 +34,8 @@ const userSchema = new Schema({
         type: String,
         required: true,
         minlength: 5,
-        maxlength: 250
+        maxlength: 250,
+        unique: true
     },
     password: {
         type: String,
@@ -31,15 +45,20 @@ const userSchema = new Schema({
     },
     phone: {
         type: String,
-        minlength: 5,
+        minlength: 14,
         maxlength: 20
     },
-    address: {
-        type: String,
-        minlength: 5,
-        maxlength: 512
+    isAdmin: {
+        type: Boolean,
+        default: false
     },
-    cart: [cartSchema]
+    cart: [cartSchema],
+    order: [orderSchema]
 });
 
-module.exports = model('Product', userSchema);
+
+userSchema.methods.generateToken = function() {
+    return jwt.sign({_id: this._id, isAdmin: this.isAdmin}, process.env.JWT_PRIVATE_KEY,{expiresIn: '1h'});
+}
+
+module.exports = model('User', userSchema);
