@@ -35,8 +35,22 @@ const createProducts = async (req, res) => {
     })
 };
 
+const deleteProduct = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const products = await Product.findByIdAndDelete(id);
+        if(products) {
+            return res.send(products);
+        }
+        return res.send('No product with the giving id');
+    } catch (error) {
+        return res.send(error.message);
+    }
+};
+
 module.exports = {
     getProducts,
     createProducts,
-    getProduct
+    getProduct,
+    deleteProduct
 }

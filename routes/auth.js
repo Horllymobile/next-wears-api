@@ -9,6 +9,6 @@ const route  = express.Router();
 route.post('/auth/signin', AuthControllter.login);
 
 // Sign Out Route
-route.post('/auth/signout', AuthControllter.logout);
+route.delete('/auth/signout', AuthControllter.logout);
 
 module.exports = route;

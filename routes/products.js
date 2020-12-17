@@ -8,7 +8,10 @@ const route  = express.Router();
 route.get('/products', ProductController.getProducts);
 route.get('/products/:id', ProductController.getProduct);
 
-// Post Routes
+// Post Routes based on authentication and admin authorization
 route.post('/products', [authentication, admin],ProductController.createProducts);
+
+// Delete Product routes only by admin
+route.delete('/products/:id', [authentication, admin], ProductController.deleteProduct);
 
 module.exports = route;

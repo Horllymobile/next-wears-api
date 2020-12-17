@@ -7,6 +7,8 @@ require('./database/mongo')();
 const productRoute = require('./routes/products');
 const userRoute = require('./routes/users');
 const authRoute = require('./routes/auth');
+const cartRoutes = require('./routes/cart');
+const orderRoutes = require('./routes/order');
 
 const app = express();
 
@@ -21,5 +23,6 @@ app.use(express.json());
 app.use('/api', productRoute);
 app.use('/api', userRoute);
 app.use('/api', authRoute);
+app.use('/api', cartRoutes);
 
 module.exports = app;

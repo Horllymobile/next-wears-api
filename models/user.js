@@ -5,6 +5,16 @@ const cartSchema = new Schema({
     product: {
         type: Schema.Types.ObjectId,
     },
+    title: {
+        type: String,
+    },
+    price: {
+        type: String,
+    },
+    date: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 const orderSchema = new Schema({
