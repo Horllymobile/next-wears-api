@@ -19,15 +19,10 @@ const productSchema = new Schema({
         minlength: 100,
         maxlength: 512
     },
-    images:[{
+    image_urls:[{
         type: String,
         required: true
     }],
-    old_price: {
-        type: Number,
-        require: true,
-        min:  1000
-    },
     color: {
         type: String,
         require: true,
@@ -41,6 +36,15 @@ const productSchema = new Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    size: {
+        type: Number,
+        required: true
+    },
+    category: {
+        type: String,
+        required: true,
+        maxlength: 50
     }
 });
 

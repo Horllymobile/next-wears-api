@@ -9,7 +9,7 @@ module.exports = function(req, res, next) {
 
     // If token not found it will return access denied
     // Checking if the token is provided
-    if(!authToken) return res.status(400).send('Access denied, No token provided');
+    if(!authToken) return res.status(403).send('Access denied, No token provided');
 
     // try block for verifying if provided token is valid json web token
     try {
@@ -26,6 +26,6 @@ module.exports = function(req, res, next) {
         next();
         return;
     } catch (error) {
-        return res.status(400).send('Invalid token');
+        return res.status(401).send('Invalid token');
     }
 }

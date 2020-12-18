@@ -13,5 +13,5 @@ module.exports = function(req, res, next) {
         return;
     }
     // if not found it should return 404 error
-    return res.status(402).send('Access denied, Not authorized');
+    return res.status(401).send('Access denied, Not authorized');
 }

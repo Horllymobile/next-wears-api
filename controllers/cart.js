@@ -1,7 +1,7 @@
 const Product = require('../models/products');
 const User = require('../models/user');
 
-
+// controller that gett all the carts
 const getCarts = async(req, res) => {
     try {
         const user = await User.findById(req.user._id).populate('cart');
@@ -15,6 +15,7 @@ const getCarts = async(req, res) => {
     }
 }
 
+// Controller for getting a single product from the cart array
 const get = async(req, res) => {
     try {
         let user = await User.findById(req.user._id);
@@ -31,15 +32,21 @@ const get = async(req, res) => {
     }
 }
 
+// controller that add product to cart 
 const add = async(req, res) => {
     try {
+        // getting the user with the req.user 
         let user = await User.findById(req.user._id);
         if(user) {
+            // finding product with params in the url route 
             const product = await Product.findById(req.params.id);
+            // user cart
             const cart = user.cart;
+            // checking if product is already in the cart
             const find = cart.find(item => item.product.toString() === product._id.toString());
-            console.log(find);
+
             if(!find){
+                // Adding the product to cart if it is not found in the cart array
                 user = await User.findByIdAndUpdate(req.user._id);
                 user.cart.push({
                     product: product._id,
@@ -57,12 +64,15 @@ const add = async(req, res) => {
     }
 }
 
+// The controller for removing product from cart
 const remove = async(req, res) => {
     try {
         let user = await User.findById(req.user._id);
         if(user) {
-            const find = user.cart.find(item => item.product.toString() === req.params.id);
+            const find = user.cart.find(item => item.product.toString() === req.params.id); // finding the product
+            // using the product id and array find method on the cart array
             if(find){
+                //find and updating the user cart and removing product
                 user = await User.findByIdAndUpdate(req.user._id);
                 user.cart.splice(find._id, 1);
                 await user.save();

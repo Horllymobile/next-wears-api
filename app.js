@@ -1,5 +1,6 @@
 const express = require('express');
-
+const cors = require('cors');
+const helmet = require('helmet')
 require('dotenv').config();
 require('./database/mongo')();
 
@@ -12,6 +13,9 @@ const orderRoutes = require('./routes/order');
 
 const app = express();
 
+app.use(cors());
+app.use(helmet());
+
 app.get('/', (req, res) => {
     return res.send('Hello');
 });
@@ -20,6 +24,7 @@ app.get('/', (req, res) => {
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
+// Using routes middlewares
 app.use('/api', productRoute);
 app.use('/api', userRoute);
 app.use('/api', authRoute);
